@@ -27,7 +27,7 @@ public class QuotationController {
         return ResponseEntity.ok().body(quotationEntity);
     }
 
-    // 수고리스트 조회
+    // 전문가로부터 견적서 확인
     @PostMapping("/matchedgosulist")
     public ResponseEntity matchedgosulist(@RequestBody String emailfrom) {
 
