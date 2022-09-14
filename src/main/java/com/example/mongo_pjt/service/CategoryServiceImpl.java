@@ -26,32 +26,30 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List showingEachCategory(Long _id) {
-        Category a = categoryRepo.findBy_id(_id);
-        log.info("a가 왜? : " + a);
+        Category categoryInfo = categoryRepo.findBy_id(_id);
+        log.info("요청 URL 확인 할 것 : " + categoryInfo);
         Map<String, String> map = new HashMap<String, String>();
         List lists = new ArrayList();
 
-        int i;
-        for (i=0; i<=8; i++)
+        // 프론트에서 필요한 정보만 받기 위함
+        for (int i=0; i<=8; i++)
         {
             map = new HashMap<>();
-            Long idx = a.getInfo().get(i).get_idx();
+            Long idx = categoryInfo.getInfo().get(i).get_idx();
             map.put("_idx", idx.toString());
-            log.info("id가 왜 null 일까?  " + a.getInfo());
-            String name = a.getInfo().get(i).getName();
+            String name = categoryInfo.getInfo().get(i).getName();
             map.put("name", name);
-            String image = a.getInfo().get(i).getImage();
+            String image = categoryInfo.getInfo().get(i).getImage();
             map.put("image", image);
             lists.add(map);
         }
-        log.info("b : " + map);
         return lists;
     }
 
     @Override
     public Info showingDetail(Long _id, Integer indexNum) {
-        Category a = categoryRepo.findBy_id(_id);
-        Info info = a.getInfo().get(indexNum);
+        Category smallCategory = categoryRepo.findBy_id(_id);
+        Info info = smallCategory.getInfo().get(indexNum);
         return info;
     }
 }

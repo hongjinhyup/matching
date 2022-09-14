@@ -21,6 +21,7 @@ public class SurveyDto {
     private Integer age;
     private Integer career;
     private List region;
+    private Integer status;
 
 /*--------------------------------*/
     private String gosuName;
@@ -45,6 +46,7 @@ public class SurveyDto {
                 .gosuGender(gosuGender)
                 .gosuCategory(gosuCategory)
                 .gosuRegion(gosuRegion)
+                .status(status)
                 .build();
         log.info("email 정보 " + email);
         return a;

@@ -25,4 +25,6 @@ public class SurveyOnlyDto {
     private Integer career;
     @ApiModelProperty(example = "고객이 원하는 지역")
     private List region;
+    @ApiModelProperty(example = "거래 진행 상태")
+    private Integer status;
 }

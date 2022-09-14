@@ -22,16 +22,13 @@ public class QuotationController {
     @PostMapping("/quotationSubmit/{id}")
     public ResponseEntity saveQuotation(@RequestBody QuotationDto quotationDto, @PathVariable String id) {
         QuotationEntity quotationEntity = quotationService.savingQuo(quotationDto, id);
-        Map<String, String> map = new HashMap<>();
-//        map.put("quotation save", "completed");
         return ResponseEntity.ok().body(quotationEntity);
     }
 
-    // 전문가로부터 견적서 확인
+    // 사용자가 전문가로부터 온 견적서 확인
     @PostMapping("/matchedgosulist")
-    public ResponseEntity matchedgosulist(@RequestBody String emailfrom) {
-
-        return ResponseEntity.ok().body(quotationService.showingAllQuo(emailfrom));
+    public ResponseEntity matchedgosulist(@RequestBody String emailFrom) {
+        return ResponseEntity.ok().body(quotationService.showingAllQuo(emailFrom));
     }
 
     @PostMapping("matchedgosulist/{id}")

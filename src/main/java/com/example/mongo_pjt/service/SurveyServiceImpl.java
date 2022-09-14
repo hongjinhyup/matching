@@ -1,12 +1,15 @@
 package com.example.mongo_pjt.service;
 
 import com.example.mongo_pjt.domain.dto.SurveyDto;
+import com.example.mongo_pjt.domain.dto.SurveyIdListDto;
 import com.example.mongo_pjt.domain.dto.UserDto;
 import com.example.mongo_pjt.domain.entity.SurveyEntity;
 import com.example.mongo_pjt.domain.dto.SurveyOnlyDto;
 import com.example.mongo_pjt.repo.SurveyRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.json.simple.JSONArray;
+import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +24,7 @@ public class SurveyServiceImpl implements SurveyService {
     List<SurveyOnlyDto> surveyOnlyDtoList = new ArrayList<>();
     List surveyInfoList = new ArrayList();
     Map<String, Integer> map = new HashMap<>();
+    private final DataPreproccessing dataPreproccessing;
 
     @Override
     public List<SurveyOnlyDto> showingAllSurveys() {
@@ -37,6 +41,7 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public SurveyEntity savingSurvey(SurveyDto surveyDto) {
+
         String email = surveyDto.getEmail();
         String category = surveyDto.getCategory();
 
@@ -44,25 +49,55 @@ public class SurveyServiceImpl implements SurveyService {
             log.info("이미 등록된 의뢰서입니다!");
             Map<String,String> duplicateSurvey = new HashMap<>();
             duplicateSurvey.put("survey status", "이미 등록된 의뢰서입니다!");
-            log.info("not save : " + duplicateSurvey);
+            log.info("not saved : " + duplicateSurvey);
 
             return SurveyEntity.builder().build();
 
         } else {
+            // 거래 진행 전 -> 0, 중 -> 1, 후 -> 2
+            surveyDto.setStatus(0);
             SurveyEntity surveyEntity = surveyRepo.save(surveyDto.toEntity());
+            System.out.println("result : " + surveyEntity);
             return surveyEntity;
         }
     }
 
+    @Override
+    public void changingStatus(String id) {
+        SurveyDto surveyDto = surveyRepo.findById(id).orElseThrow().toDto();
+        surveyDto.setStatus(1);
+    }
 
-    // String region, Integer age, String gender
+    @Override
+    public List<SurveyOnlyDto> showingSurveysAccordingToStatus(Integer status, SurveyIdListDto surveyIdListDto) {
+        log.info("from controlelr : "  + status + " and list : " + surveyIdListDto.getId());
+
+        List ids = surveyIdListDto.getId();
+
+        List<SurveyOnlyDto> surveyInfoAccordingToStatus = new ArrayList();
+        for (int i=0; i< ids.size(); i++) {
+            String id = ids.get(i).toString();
+            SurveyOnlyDto surveyOnlyDto = surveyRepo.findAllByIdAndStatus(id, status).toEntity().toUserSurveyOnly();
+            surveyInfoAccordingToStatus.add(surveyOnlyDto);
+        }
+
+        return surveyInfoAccordingToStatus;
+    }
+
     @Override
     public List<SurveyOnlyDto> showingProperUsersForExpert(UserDto expertInfo) {
         String expertAddress = expertInfo.getAddress();
+
+        List expertAddrsList = dataPreproccessing.splitString(expertAddress);
         Integer expertAge = expertInfo.getAge();
         String expertGender = expertInfo.getGender();
 
-        List<SurveyEntity> surveyList = surveyRepo.findSurveyEntitiesByRegionAndAgeAndGender(expertAddress, expertAge, expertGender);
+        List<SurveyEntity> surveyList = null;
+
+        for (int i=0; i<expertAddrsList.size(); i++) {
+//            String ex = expertAddrsList.get(i).toString();
+            surveyList = surveyRepo.findSurveyEntitiesByRegionAndAgeAndGender(expertAddrsList.get(i).toString(), expertAge, expertGender);
+        }
 
         if (surveyList.size() != 0) {
             for (int i =0; i<surveyList.size(); i++) {
@@ -72,10 +107,10 @@ public class SurveyServiceImpl implements SurveyService {
             return surveyOnlyDtoList;
         }
         else {
-            map.put("ListNull", 101);
+            map.put("ListNull", 101); // list가 null 일 경우 해당 JSON 타입 리턴
             surveyInfoList.add(map);
             return surveyInfoList;
-        }
+         }
 
     }
     /*------------------------------------------------------------*/
@@ -83,22 +118,14 @@ public class SurveyServiceImpl implements SurveyService {
     @Override
     public SurveyDto showingSurveyDetail(String id, SurveyDto surveyDto) {
 
-        String gosuname = surveyDto.getGosuName();
-        Integer gosuage = surveyDto.getGosuAge();
-        String gosugender = surveyDto.getGosuGender();
-        String gosucategory = surveyDto.getGosuCategory();
-        String gosuregion = surveyDto.getGosuRegion();
-        Integer gosucareer = surveyDto.getGosuCareer();
+        SurveyDto specificSurvey = surveyRepo.findById(id).orElseThrow().toDto();
 
-        SurveyEntity specificSurvey = surveyRepo.findById(id).orElseThrow();
-
-        SurveyDto surveyOne = specificSurvey.toDto();
-        surveyOne.setGosuName(gosuname);
-        surveyOne.setGosuAge(gosuage);
-        surveyOne.setGosuGender(gosugender);
-        surveyOne.setGosuCategory(gosucategory);
-        surveyOne.setGosuRegion(gosuregion);
-        surveyOne.setGosuCareer(gosucareer);
-        return surveyOne;  // 최종 surveyDto + 고수 회원정보
+        specificSurvey.setGosuName(surveyDto.getGosuName());
+        specificSurvey.setGosuAge(surveyDto.getGosuAge());
+        specificSurvey.setGosuGender(surveyDto.getGosuGender());
+        specificSurvey.setGosuCategory(surveyDto.getGosuCategory());
+        specificSurvey.setGosuRegion(surveyDto.getGosuRegion());
+        specificSurvey.setGosuCareer(surveyDto.getGosuCareer());
+        return specificSurvey;  // 최종 surveyDto + 고수 회원정보
     }
 }

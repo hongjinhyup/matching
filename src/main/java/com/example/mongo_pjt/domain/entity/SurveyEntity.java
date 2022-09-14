@@ -22,6 +22,7 @@ public class SurveyEntity {
     private Integer age;
     private Integer career;
     private List region;
+    private Integer status;
 
     /*--------------------------*/
 
@@ -47,6 +48,7 @@ public class SurveyEntity {
                 .gosuGender(gosuGender)
                 .gosuCategory(gosuCategory)
                 .gosuRegion(gosuRegion)
+                .status(status)
                 .build();
         return a;
     }
@@ -61,6 +63,7 @@ public class SurveyEntity {
                 .age(age)
                 .career(career)
                 .region(region)
+                .status(status)
                 .build();
         return originalSurveyInfo;
     }
