@@ -9,4 +9,5 @@ import java.util.List;
 public interface QuotationRepo extends MongoRepository<QuotationEntity, String> {
     QuotationEntity save(QuotationEntity quotationEntity);
     List<QuotationEntity> findByUserEmail(String email);
+    List<QuotationDto> findAllByIdAndStatus(Integer status, String id);
 }

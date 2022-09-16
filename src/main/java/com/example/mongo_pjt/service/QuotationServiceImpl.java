@@ -2,6 +2,8 @@ package com.example.mongo_pjt.service;
 
 import com.example.mongo_pjt.domain.dto.QuotationDto;
 import com.example.mongo_pjt.domain.dto.QuotationOnlyDto;
+import com.example.mongo_pjt.domain.dto.SurveyIdListDto;
+import com.example.mongo_pjt.domain.dto.SurveyOnlyDto;
 import com.example.mongo_pjt.domain.entity.QuotationEntity;
 import com.example.mongo_pjt.domain.entity.SurveyEntity;
 import com.example.mongo_pjt.repo.QuotationRepo;
@@ -69,5 +71,37 @@ public class QuotationServiceImpl implements QuotationService {
         QuotationEntity quotationList = quotationRepo.findById(id).orElseThrow();
         QuotationDto quotationDto = quotationList.toDto();
         return quotationDto;
+    }
+
+    @Override
+    public List<QuotationDto> showingQuoAccordingToStatus(Integer status, SurveyIdListDto surveyIdListDto) {
+
+        List info = new ArrayList();
+
+        try {
+
+            log.info("from controlelr : "  + status + " and list : " + surveyIdListDto.getId());
+
+            List ids = surveyIdListDto.getId();
+
+
+            for (int i=0; i< ids.size(); i++) {
+                String id = ids.get(i).toString();
+                SurveyOnlyDto surveyOnlyDto = surveyRepo.findAllByIdAndStatus(id, status).toEntity().toUserSurveyOnly();
+
+                info.add(surveyOnlyDto);
+            }
+
+//            return surveyInfoAccordingToStatus;
+
+        } catch (NullPointerException npe) {
+            Map<String,Integer> map = new HashMap<>();
+            map.put("ListNull",101);
+            info.add(map);
+            return info;
+        }
+
+        return info;
+
     }
 }
