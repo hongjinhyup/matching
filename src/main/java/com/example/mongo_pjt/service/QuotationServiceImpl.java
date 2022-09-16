@@ -59,7 +59,7 @@ public class QuotationServiceImpl implements QuotationService {
             map.put("ListNull", 101); // list가 null 일 경우 해당 JSON 타입 리턴
             lists.add(map);
         }
-
+//
         return lists;
     }
 

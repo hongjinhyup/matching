@@ -88,16 +88,13 @@ public class SurveyServiceImpl implements SurveyService {
                 surveyInfoAccordingToStatus.add(surveyOnlyDto);
             }
 
-            if (surveyInfoAccordingToStatus.isEmpty()) {
-                Map<String,Integer> map = new HashMap<>();
-                map.put("ListNull",101);
-                surveyInfoAccordingToStatus.add(map);
-                return surveyInfoAccordingToStatus;
-            }
-
+//            return surveyInfoAccordingToStatus;
 
         } catch (NullPointerException npe) {
-            System.out.println("NPE!");
+            Map<String,Integer> map = new HashMap<>();
+            map.put("ListNull",101);
+            surveyInfoAccordingToStatus.add(map);
+            return surveyInfoAccordingToStatus;
         }
 
         return surveyInfoAccordingToStatus;
