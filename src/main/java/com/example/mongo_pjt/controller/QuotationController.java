@@ -1,6 +1,7 @@
 package com.example.mongo_pjt.controller;
 
 import com.example.mongo_pjt.domain.dto.QuotationDto;
+import com.example.mongo_pjt.domain.dto.SurveyIdListDto;
 import com.example.mongo_pjt.domain.entity.QuotationEntity;
 import com.example.mongo_pjt.repo.QuotationRepo;
 import com.example.mongo_pjt.service.QuotationServiceImpl;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -29,6 +31,12 @@ public class QuotationController {
     @PostMapping("/matchedgosulist")
     public ResponseEntity matchedgosulist(@RequestBody String emailFrom) {
         return ResponseEntity.ok().body(quotationService.showingAllQuo(emailFrom));
+    }
+
+    @PostMapping("/matchedgosulist/{status}")
+    public ResponseEntity matchedgosulist(@PathVariable Integer status, @RequestBody SurveyIdListDto surveyIdListDto) {
+        List<QuotationDto> info = quotationService.showingQuoAccordingToStatus(status, surveyIdListDto);
+        return ResponseEntity.ok().body(info);
     }
 
     @PostMapping("matchedgosulist/{id}")

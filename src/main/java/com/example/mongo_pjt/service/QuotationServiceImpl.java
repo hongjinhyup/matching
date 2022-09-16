@@ -80,7 +80,7 @@ public class QuotationServiceImpl implements QuotationService {
 
         try {
 
-            log.info("from controlelr : "  + status + " and list : " + surveyIdListDto.getId());
+            log.info("from controller : "  + status + " and list : " + surveyIdListDto.getId());
 
             List ids = surveyIdListDto.getId();
 
