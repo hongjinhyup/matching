@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONArray;
 import org.junit.jupiter.api.Test;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,13 +72,14 @@ public class SurveyServiceImpl implements SurveyService {
     @Override
     public List<SurveyOnlyDto> showingSurveysAccordingToStatus(Integer status, SurveyIdListDto surveyIdListDto) {
 
+        List surveyInfoAccordingToStatus = new ArrayList();
+
         try {
 
             log.info("from controlelr : "  + status + " and list : " + surveyIdListDto.getId());
 
             List ids = surveyIdListDto.getId();
 
-            List surveyInfoAccordingToStatus = new ArrayList();
 
             for (int i=0; i< ids.size(); i++) {
                 String id = ids.get(i).toString();
@@ -87,6 +87,7 @@ public class SurveyServiceImpl implements SurveyService {
 
                 surveyInfoAccordingToStatus.add(surveyOnlyDto);
             }
+
             if (surveyInfoAccordingToStatus.isEmpty()) {
                 Map<String,Integer> map = new HashMap<>();
                 map.put("ListNull",101);
@@ -94,11 +95,12 @@ public class SurveyServiceImpl implements SurveyService {
                 return surveyInfoAccordingToStatus;
             }
 
-            return surveyInfoAccordingToStatus;
 
         } catch (NullPointerException npe) {
             System.out.println("NPE!");
         }
+
+        return surveyInfoAccordingToStatus;
 
     }
 

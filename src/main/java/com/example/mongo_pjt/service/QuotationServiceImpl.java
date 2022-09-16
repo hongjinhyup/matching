@@ -31,7 +31,6 @@ public class QuotationServiceImpl implements QuotationService {
         QuotationEntity quotationEntity = quotationRepo.save(quotationDto.toEntity());
 
 
-
         return quotationEntity;
     }
 
