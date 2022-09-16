@@ -87,12 +87,10 @@ public class QuotationServiceImpl implements QuotationService {
 
             for (int i=0; i< ids.size(); i++) {
                 String id = ids.get(i).toString();
-                SurveyOnlyDto surveyOnlyDto = surveyRepo.findAllByIdAndStatus(id, status).toEntity().toUserSurveyOnly();
-
-                info.add(surveyOnlyDto);
+                QuotationDto quotationDto = quotationRepo.findAllByIdAndStatus(status, id).get(i);
+                info.add(quotationDto);
             }
 
-//            return surveyInfoAccordingToStatus;
 
         } catch (NullPointerException npe) {
             Map<String,Integer> map = new HashMap<>();
