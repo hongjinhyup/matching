@@ -18,7 +18,9 @@ import org.json.simple.JSONArray;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @RestController
@@ -44,7 +46,7 @@ public class SurveyController {
         return ResponseEntity.ok().body(savingStatus);
     }
 
-    // survey id 저장
+    // survey id 변경
     @GetMapping("/survey/status/{id}")
     public void changeStatus(@PathVariable String id) {
         surveyService.changingStatus(id);
@@ -72,6 +74,7 @@ public class SurveyController {
         log.info("surveyIdListDto : " + surveyIdListDto.getId());
 
         List<SurveyOnlyDto> surveyOnlyDto = surveyService.showingSurveysAccordingToStatus(status, surveyIdListDto);
+
         return ResponseEntity.ok().body(surveyOnlyDto);
     }
 

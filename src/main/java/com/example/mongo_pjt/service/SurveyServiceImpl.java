@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONArray;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +22,14 @@ import java.util.*;
 @RequiredArgsConstructor
 public class SurveyServiceImpl implements SurveyService {
     private final SurveyRepo surveyRepo;
-    List<SurveyOnlyDto> surveyOnlyDtoList = new ArrayList<>();
+    
     List surveyInfoList = new ArrayList();
     Map<String, Integer> map = new HashMap<>();
     private final DataPreproccessing dataPreproccessing;
 
     @Override
     public List<SurveyOnlyDto> showingAllSurveys() {
+        List<SurveyOnlyDto> surveyOnlyDtoList = new ArrayList<>();
         List<SurveyEntity> surveyAll = surveyRepo.findAll();
         surveyOnlyDtoList = new ArrayList<>();
         for (int i=0; i<surveyAll.size(); i++) {
@@ -70,22 +72,39 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public List<SurveyOnlyDto> showingSurveysAccordingToStatus(Integer status, SurveyIdListDto surveyIdListDto) {
-        log.info("from controlelr : "  + status + " and list : " + surveyIdListDto.getId());
 
-        List ids = surveyIdListDto.getId();
+        try {
 
-        List<SurveyOnlyDto> surveyInfoAccordingToStatus = new ArrayList();
-        for (int i=0; i< ids.size(); i++) {
-            String id = ids.get(i).toString();
-            SurveyOnlyDto surveyOnlyDto = surveyRepo.findAllByIdAndStatus(id, status).toEntity().toUserSurveyOnly();
-            surveyInfoAccordingToStatus.add(surveyOnlyDto);
+            log.info("from controlelr : "  + status + " and list : " + surveyIdListDto.getId());
+
+            List ids = surveyIdListDto.getId();
+
+            List surveyInfoAccordingToStatus = new ArrayList();
+
+            for (int i=0; i< ids.size(); i++) {
+                String id = ids.get(i).toString();
+                SurveyOnlyDto surveyOnlyDto = surveyRepo.findAllByIdAndStatus(id, status).toEntity().toUserSurveyOnly();
+
+                surveyInfoAccordingToStatus.add(surveyOnlyDto);
+            }
+            if (surveyInfoAccordingToStatus.isEmpty()) {
+                Map<String,Integer> map = new HashMap<>();
+                map.put("ListNull",101);
+                surveyInfoAccordingToStatus.add(map);
+                return surveyInfoAccordingToStatus;
+            }
+
+            return surveyInfoAccordingToStatus;
+
+        } catch (NullPointerException npe) {
+            System.out.println("NPE!");
         }
 
-        return surveyInfoAccordingToStatus;
     }
 
     @Override
     public List<SurveyOnlyDto> showingProperUsersForExpert(UserDto expertInfo) {
+        List<SurveyOnlyDto> surveyOnlyDtoList = new ArrayList<>();
         String expertAddress = expertInfo.getAddress();
 
         List expertAddrsList = dataPreproccessing.splitString(expertAddress);
@@ -104,6 +123,7 @@ public class SurveyServiceImpl implements SurveyService {
                 SurveyOnlyDto newOne = surveyList.get(i).toUserSurveyOnly();
                 surveyOnlyDtoList.add(newOne);
             }
+
             return surveyOnlyDtoList;
         }
         else {
