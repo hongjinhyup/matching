@@ -51,6 +51,7 @@ public class QuotationServiceImpl implements QuotationService {
                 quotationOnlyDto.setGosuGender(quotationList.get(i).getGosuGender());
                 quotationOnlyDto.setGosuCategory(quotationList.get(i).getGosuCategory());
                 quotationOnlyDto.setGosuRegion(quotationList.get(i).getGosuRegion());
+                quotationOnlyDto.setStatus(quotationList.get(i).getStatus());
                 lists.add(quotationOnlyDto);
             }
 
