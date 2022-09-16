@@ -24,6 +24,7 @@ public class QuotationEntity {
     private String gosuRegion; // 위와 동일
     private Long quotationPrice; // 프론트에서 받아올 것
     private String introduction;  // 프론트에서 받아올 것
+    private Integer status;
 
     public QuotationDto toDto() {
         QuotationDto todto = QuotationDto.builder()
@@ -38,6 +39,7 @@ public class QuotationEntity {
                 .gosuRegion(gosuRegion)
                 .quotationPrice(quotationPrice)
                 .introduction(introduction)
+                .status(status)
                 .build();
         return todto;
     }

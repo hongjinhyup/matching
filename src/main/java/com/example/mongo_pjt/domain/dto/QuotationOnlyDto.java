@@ -13,6 +13,8 @@ public class QuotationOnlyDto {
     private String gosuCategory;
     private Integer gosuCareer;
     private String gosuRegion;
+    private Integer status;
+
 
     public QuotationEntity toEntity() {
         QuotationEntity building = QuotationEntity.builder()
@@ -23,6 +25,7 @@ public class QuotationOnlyDto {
                 .gosuCategory(gosuCategory)
                 .gosuCareer(gosuCareer)
                 .gosuRegion(gosuRegion)
+                .status(status)
                 .build();
         return building;
     }
