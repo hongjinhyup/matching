@@ -93,12 +93,14 @@ public class QuotationServiceImpl implements QuotationService {
 
             if (quotationDtoList.isEmpty()) {
                 map.put("ListNull", 101);
-                return info.add(map);
+                info.add(map);
+                return info;
             }
 
         } catch (Exception e) {
             map.put("error", 999);
-            return info.add(map);
+            info.add(map);
+            return info;
         }
 
         return quotationDtoList;
