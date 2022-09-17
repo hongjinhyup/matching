@@ -33,10 +33,10 @@ public class QuotationController {
         return ResponseEntity.ok().body(quotationService.showingAllQuo(emailFrom));
     }
 
-    @PostMapping("/matchedgosulist/{status}")
+    @PostMapping("/matchedgosulist/status/{status}")
     public ResponseEntity matchedgosulist(@PathVariable Integer status, @RequestBody IdListDto idListDto) {
-        List<QuotationDto> info = quotationService.showingQuoAccordingToStatus(status, idListDto);
-        return ResponseEntity.ok().body(info);
+        List result = quotationService.showingQuoAccordingToStatus(status, idListDto);
+        return ResponseEntity.ok().body(result);
     }
 
     @PostMapping("matchedgosulist/{id}")
