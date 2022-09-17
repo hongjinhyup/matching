@@ -1,9 +1,8 @@
 package com.example.mongo_pjt.service;
 
+import com.example.mongo_pjt.domain.dto.IdListDto;
 import com.example.mongo_pjt.domain.dto.QuotationDto;
 import com.example.mongo_pjt.domain.dto.QuotationOnlyDto;
-import com.example.mongo_pjt.domain.dto.SurveyIdListDto;
-import com.example.mongo_pjt.domain.dto.SurveyOnlyDto;
 import com.example.mongo_pjt.domain.entity.QuotationEntity;
 import com.example.mongo_pjt.domain.entity.SurveyEntity;
 import com.example.mongo_pjt.repo.QuotationRepo;
@@ -75,20 +74,20 @@ public class QuotationServiceImpl implements QuotationService {
     }
 
     @Override
-    public List<QuotationDto> showingQuoAccordingToStatus(Integer status, SurveyIdListDto surveyIdListDto) {
+    public List<QuotationDto> showingQuoAccordingToStatus(Integer status, IdListDto idListDto) {
 
         List info = new ArrayList();
 
         try {
 
-            log.info("from controller : "  + status + " and list : " + surveyIdListDto.getId());
+            log.info("from controller : "  + status + " and list : " + idListDto.getId());
 
-            List ids = surveyIdListDto.getId();
+            List ids = idListDto.getId();
 
 
             for (int i=0; i< ids.size(); i++) {
                 String id = ids.get(i).toString();
-                QuotationDto quotationDto = quotationRepo.findAllByIdAndStatus(status, id).get(i);
+                List<QuotationDto> quotationDto = quotationRepo.findAllByIdAndStatus(status, id);
                 info.add(quotationDto);
             }
 

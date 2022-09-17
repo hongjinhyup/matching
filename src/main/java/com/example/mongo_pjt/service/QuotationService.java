@@ -1,9 +1,8 @@
 package com.example.mongo_pjt.service;
 
+import com.example.mongo_pjt.domain.dto.IdListDto;
 import com.example.mongo_pjt.domain.dto.QuotationDto;
-import com.example.mongo_pjt.domain.dto.SurveyIdListDto;
 import com.example.mongo_pjt.domain.entity.QuotationEntity;
-import com.example.mongo_pjt.domain.entity.SurveyEntity;
 
 import java.util.List;
 
@@ -14,5 +13,5 @@ public interface QuotationService {
     List<QuotationEntity> showingAllQuo(String id);  // 고수리스트
     QuotationDto showingQuotationDetail(String id);
 
-    List<QuotationDto> showingQuoAccordingToStatus(Integer status, SurveyIdListDto surveyIdListDto);
+    List<QuotationDto> showingQuoAccordingToStatus(Integer status, IdListDto idListDto);
 }

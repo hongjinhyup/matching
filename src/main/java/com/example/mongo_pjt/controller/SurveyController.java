@@ -1,8 +1,8 @@
 package com.example.mongo_pjt.controller;
 
+import com.example.mongo_pjt.domain.dto.IdListDto;
 import com.example.mongo_pjt.domain.dto.SurveyDto;
 
-import com.example.mongo_pjt.domain.dto.SurveyIdListDto;
 import com.example.mongo_pjt.domain.dto.SurveyOnlyDto;
 import com.example.mongo_pjt.domain.dto.UserDto;
 import com.example.mongo_pjt.domain.entity.SurveyEntity;
@@ -14,13 +14,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-import org.json.simple.JSONArray;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Log4j2
 @RestController
@@ -69,11 +66,11 @@ public class SurveyController {
 
     // 진행 전 중 후 매핑 요청에 따른 값 전달
     @PostMapping("/matchedList/{status}") // 오류 해결 과정 -> https://www.notion.so/632ef042d327441092a013df2976c0da
-    public ResponseEntity surveyInfoAccordingToStatus(@PathVariable Integer status, @RequestBody SurveyIdListDto surveyIdListDto) {
+    public ResponseEntity surveyInfoAccordingToStatus(@PathVariable Integer status, @RequestBody IdListDto idListDto) {
         log.info("status : " + status);
-        log.info("surveyIdListDto : " + surveyIdListDto.getId());
+        log.info("surveyIdListDto : " + idListDto.getId());
 
-        List<SurveyOnlyDto> surveyOnlyDtoList = surveyService.showingSurveysAccordingToStatus(status, surveyIdListDto);
+        List<SurveyOnlyDto> surveyOnlyDtoList = surveyService.showingSurveysAccordingToStatus(status, idListDto);
 
         return ResponseEntity.ok().body(surveyOnlyDtoList);
     }

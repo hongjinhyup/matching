@@ -1,15 +1,14 @@
 package com.example.mongo_pjt.service;
 
+import com.example.mongo_pjt.domain.dto.IdListDto;
 import com.example.mongo_pjt.domain.dto.SurveyDto;
-import com.example.mongo_pjt.domain.dto.SurveyIdListDto;
 import com.example.mongo_pjt.domain.dto.UserDto;
 import com.example.mongo_pjt.domain.entity.SurveyEntity;
 import com.example.mongo_pjt.domain.dto.SurveyOnlyDto;
 import com.example.mongo_pjt.repo.SurveyRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.json.simple.JSONArray;
-import org.junit.jupiter.api.Test;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,15 +69,15 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public List<SurveyOnlyDto> showingSurveysAccordingToStatus(Integer status, SurveyIdListDto surveyIdListDto) {
+    public List<SurveyOnlyDto> showingSurveysAccordingToStatus(Integer status, IdListDto idListDto) {
 
         List surveyInfoAccordingToStatus = new ArrayList();
 
         try {
 
-            log.info("from controlelr : "  + status + " and list : " + surveyIdListDto.getId());
+            log.info("from controlelr : "  + status + " and list : " + idListDto.getId());
 
-            List ids = surveyIdListDto.getId();
+            List ids = idListDto.getId();
 
 
             for (int i=0; i< ids.size(); i++) {
