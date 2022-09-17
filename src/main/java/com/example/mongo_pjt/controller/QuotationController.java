@@ -6,6 +6,7 @@ import com.example.mongo_pjt.domain.entity.QuotationEntity;
 import com.example.mongo_pjt.repo.QuotationRepo;
 import com.example.mongo_pjt.service.QuotationServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Log4j2
 @RestController
 @RequiredArgsConstructor
 public class QuotationController {
@@ -35,6 +37,8 @@ public class QuotationController {
 
     @PostMapping("/matchedgosulist/{status}")
     public ResponseEntity matchedgosulist(@PathVariable Integer status, @RequestBody SurveyIdListDto surveyIdListDto) {
+        log.info("status : " + status);
+        log.info("id list : " + surveyIdListDto);
         List<QuotationDto> info = quotationService.showingQuoAccordingToStatus(status, surveyIdListDto);
         return ResponseEntity.ok().body(info);
     }
