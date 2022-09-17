@@ -77,8 +77,7 @@ public class QuotationServiceImpl implements QuotationService {
     public List showingQuoAccordingToStatus(Integer status, IdListDto idListDto) {
         log.info("status from ct : " + status + " / " + idListDto);
         Map<String,Integer> map = new HashMap<>();
-        List<QuotationDto> quotationDtoList = new ArrayList<>();
-        List info = new ArrayList();
+        List quotationDtoList = new ArrayList<>();
 
         try {
 
@@ -88,20 +87,20 @@ public class QuotationServiceImpl implements QuotationService {
 
             for (int i=0; i< ids.size(); i++) {
                 String id = ids.get(i).toString();
-                quotationDtoList.add(quotationRepo.findAllByIdAndStatus(status, id));
+                QuotationDto quotationDto = quotationRepo.findAllByIdAndStatus(id, status);
+                if (!quotationDto.equals("null")) {
+                    quotationDtoList.add(quotationDto);
+                }
+
             }
 
-            if (quotationDtoList.isEmpty()) {
-                map.put("ListNull", 101);
-                info.add(map);
-                return info;
-            }
-
-        } catch (Exception e) {
-            map.put("error", 999);
-            info.add(map);
-            return info;
+        } catch (NullPointerException e) {
+            map.put("ListNull", 101);
+            quotationDtoList.add(map);
+            return quotationDtoList;
         }
+
+        log.info("what's insdie the list?   " + quotationDtoList);
 
         return quotationDtoList;
 
