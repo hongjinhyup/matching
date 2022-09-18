@@ -1,10 +1,7 @@
 package com.example.mongo_pjt.service;
 
-import com.example.mongo_pjt.domain.dto.IdListDto;
-import com.example.mongo_pjt.domain.dto.SurveyDto;
-import com.example.mongo_pjt.domain.dto.UserDto;
+import com.example.mongo_pjt.domain.dto.*;
 import com.example.mongo_pjt.domain.entity.SurveyEntity;
-import com.example.mongo_pjt.domain.dto.SurveyOnlyDto;
 import com.example.mongo_pjt.repo.SurveyRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -145,5 +142,18 @@ public class SurveyServiceImpl implements SurveyService {
         specificSurvey.setGosuRegion(surveyDto.getGosuRegion());
         specificSurvey.setGosuCareer(surveyDto.getGosuCareer());
         return specificSurvey;  // 최종 surveyDto + 고수 회원정보
+    }
+
+    @Override
+    public void statusFinish(QuotationDto quotationDto) {
+        try{
+            String userEmail = quotationDto.getUserEmail();
+            String gosuEmail = quotationDto.getGosuEmail();
+            SurveyDto target = surveyRepo.findByUserEmailAndGosuEmail(userEmail, gosuEmail);
+            target.setStatus(2);
+            surveyRepo.save(target.toEntity());
+        } catch (Exception e){
+            throw new RuntimeException("No Quotation");
+        }
     }
 }

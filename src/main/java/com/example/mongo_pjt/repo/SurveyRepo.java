@@ -1,5 +1,6 @@
 package com.example.mongo_pjt.repo;
 
+import com.example.mongo_pjt.domain.dto.QuotationDto;
 import com.example.mongo_pjt.domain.dto.SurveyDto;
 import com.example.mongo_pjt.domain.entity.SurveyEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -18,4 +19,5 @@ public interface SurveyRepo extends MongoRepository<SurveyEntity, String> {
     List<SurveyEntity> findByCategory(String category);
     List<SurveyEntity> findSurveyEntitiesByRegionAndAgeAndGender(String region, Integer age, String gender);
     SurveyDto findAllByIdAndStatus(String id, Integer status);
+    SurveyDto findByEmailAndGosuEmail(String Email, String gosuEmail);
 }

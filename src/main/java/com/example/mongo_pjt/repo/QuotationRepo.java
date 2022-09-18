@@ -11,4 +11,5 @@ public interface QuotationRepo extends MongoRepository<QuotationEntity, String> 
     List<QuotationEntity> findByUserEmail(String email);
     
     QuotationDto findAllByIdAndStatus(String id, Integer status);
+    QuotationDto findByUserEmailAndGosuEmail(String userEmail, String gosuEmail);
 }

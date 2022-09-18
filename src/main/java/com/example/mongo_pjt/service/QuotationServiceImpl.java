@@ -3,6 +3,7 @@ package com.example.mongo_pjt.service;
 import com.example.mongo_pjt.domain.dto.IdListDto;
 import com.example.mongo_pjt.domain.dto.QuotationDto;
 import com.example.mongo_pjt.domain.dto.QuotationOnlyDto;
+import com.example.mongo_pjt.domain.dto.UserDto;
 import com.example.mongo_pjt.domain.entity.QuotationEntity;
 import com.example.mongo_pjt.domain.entity.SurveyEntity;
 import com.example.mongo_pjt.repo.QuotationRepo;
@@ -21,6 +22,7 @@ import java.util.*;
 public class QuotationServiceImpl implements QuotationService {
 
     private final QuotationRepo quotationRepo;
+
     private final SurveyRepo surveyRepo;
     @Override
     public QuotationEntity savingQuo(QuotationDto quotationDto, String id) {
@@ -104,5 +106,18 @@ public class QuotationServiceImpl implements QuotationService {
 
         return quotationDtoList;
 
+    }
+
+    @Override
+    public void statusFinish(QuotationDto quotationDto) {
+        try{
+            String userEmail = quotationDto.getUserEmail();
+            String gosuEmail = quotationDto.getGosuEmail();
+            QuotationDto target = quotationRepo.findByUserEmailAndGosuEmail(userEmail, gosuEmail);
+            target.setStatus(2);
+            quotationRepo.save(target.toEntity());
+        } catch (Exception e){
+            throw new RuntimeException("No Quotation");
+        }
     }
 }

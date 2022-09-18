@@ -2,6 +2,7 @@ package com.example.mongo_pjt.service;
 
 import com.example.mongo_pjt.domain.dto.IdListDto;
 import com.example.mongo_pjt.domain.dto.QuotationDto;
+import com.example.mongo_pjt.domain.dto.UserDto;
 import com.example.mongo_pjt.domain.entity.QuotationEntity;
 
 import java.util.List;
@@ -13,6 +14,5 @@ public interface QuotationService {
     List<QuotationEntity> showingAllQuo(String id);  // 고수리스트
     QuotationDto showingQuotationDetail(String id);
     List<QuotationDto> showingQuoAccordingToStatus(Integer status, IdListDto idListDto);
-
-
+    void statusFinish(QuotationDto quotationDto);
 }

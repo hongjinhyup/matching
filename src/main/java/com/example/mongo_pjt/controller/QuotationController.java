@@ -40,9 +40,9 @@ public class QuotationController {
         return ResponseEntity.ok().body(result);
     }
 
-    @PutMapping("matchedfinish")
-    public ResponseEntity matchedfinish(@RequestBody UserDto user){
-        quotationService.setStatus(user);
+    @PutMapping("/quotation/matchedfinish")
+    public ResponseEntity matchedfinish(@RequestBody QuotationDto users){
+        quotationService.statusFinish(users);
         return ResponseEntity.ok().body("Status Changed");
     }
 

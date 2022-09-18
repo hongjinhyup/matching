@@ -1,10 +1,7 @@
 package com.example.mongo_pjt.controller;
 
-import com.example.mongo_pjt.domain.dto.IdListDto;
-import com.example.mongo_pjt.domain.dto.SurveyDto;
+import com.example.mongo_pjt.domain.dto.*;
 
-import com.example.mongo_pjt.domain.dto.SurveyOnlyDto;
-import com.example.mongo_pjt.domain.dto.UserDto;
 import com.example.mongo_pjt.domain.entity.SurveyEntity;
 import com.example.mongo_pjt.repo.SurveyRepo;
 import com.example.mongo_pjt.service.SurveyServiceImpl;
@@ -99,9 +96,11 @@ public class SurveyController {
         return ResponseEntity.ok().body(surveyService.showingAllSurveys());
     }
 
-
-
-
+    @PutMapping("/survey/matchedfinish")
+    public ResponseEntity matchedfinish(@RequestBody SurveyDto users){
+        surveyService.statusFinish(users);
+        return ResponseEntity.ok().body("Status Changed");
+    }
 }
 
 
