@@ -24,6 +24,7 @@ public class SurveyDto {
     private Integer status;
 
 /*--------------------------------*/
+    private String gosuEmail;
     private String gosuName;
     private Integer gosuAge;
     private String gosuGender;
@@ -41,6 +42,7 @@ public class SurveyDto {
                 .age(age)
                 .career(career)
                 .region(region)
+                .gosuEmail(gosuEmail)
                 .gosuName(gosuName)
                 .gosuAge(gosuAge)
                 .gosuGender(gosuGender)

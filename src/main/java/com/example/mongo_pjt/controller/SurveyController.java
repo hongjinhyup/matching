@@ -97,7 +97,7 @@ public class SurveyController {
     }
 
     @PutMapping("/survey/matchedfinish")
-    public ResponseEntity matchedfinish(@RequestBody SurveyDto users){
+    public ResponseEntity matchedfinish(@RequestBody QuotationDto users){
         surveyService.statusFinish(users);
         return ResponseEntity.ok().body("Status Changed");
     }
