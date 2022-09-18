@@ -2,6 +2,7 @@ package com.example.mongo_pjt.controller;
 
 import com.example.mongo_pjt.domain.dto.IdListDto;
 import com.example.mongo_pjt.domain.dto.QuotationDto;
+import com.example.mongo_pjt.domain.dto.UserDto;
 import com.example.mongo_pjt.domain.entity.QuotationEntity;
 import com.example.mongo_pjt.repo.QuotationRepo;
 import com.example.mongo_pjt.service.QuotationServiceImpl;
@@ -37,6 +38,12 @@ public class QuotationController {
     public ResponseEntity matchedgosulist(@PathVariable Integer status, @RequestBody IdListDto idListDto) {
         List result = quotationService.showingQuoAccordingToStatus(status, idListDto);
         return ResponseEntity.ok().body(result);
+    }
+
+    @PutMapping("matchedfinish")
+    public ResponseEntity matchedfinish(@RequestBody UserDto user){
+        quotationService.setStatus(user);
+        return ResponseEntity.ok().body("Status Changed");
     }
 
     @PostMapping("matchedgosulist/{id}")
