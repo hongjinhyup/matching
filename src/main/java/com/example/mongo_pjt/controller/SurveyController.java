@@ -95,12 +95,6 @@ public class SurveyController {
     public ResponseEntity showAll() {
         return ResponseEntity.ok().body(surveyService.showingAllSurveys());
     }
-
-    @PutMapping("/survey/matchedfinish")
-    public ResponseEntity matchedfinish(@RequestBody QuotationDto users){
-        surveyService.statusFinish(users);
-        return ResponseEntity.ok().body("Status Changed");
-    }
 }
 
 

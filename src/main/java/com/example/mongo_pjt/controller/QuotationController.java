@@ -6,6 +6,7 @@ import com.example.mongo_pjt.domain.dto.UserDto;
 import com.example.mongo_pjt.domain.entity.QuotationEntity;
 import com.example.mongo_pjt.repo.QuotationRepo;
 import com.example.mongo_pjt.service.QuotationServiceImpl;
+import com.example.mongo_pjt.service.SurveyServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,8 @@ public class QuotationController {
 
     private final QuotationServiceImpl quotationService;
     private final QuotationRepo quotationRepo;
+
+    private final SurveyServiceImpl surveyService;
 
     // 견적서 저장
     @PostMapping("/quotationSubmit/{id}")
@@ -40,9 +43,10 @@ public class QuotationController {
         return ResponseEntity.ok().body(result);
     }
 
-    @PutMapping("/quotation/matchedfinish")
+    @PutMapping("/matchedfinish")
     public ResponseEntity matchedfinish(@RequestBody QuotationDto users){
         quotationService.statusFinish(users);
+        surveyService.statusFinish(users);
         return ResponseEntity.ok().body("Status Changed");
     }
 
