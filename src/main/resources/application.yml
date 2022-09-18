@@ -1,0 +1,17 @@
+server:
+  port: 8010
+
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      username: jin
+      password: hyup
+      database: categoryDB
+      port: 27017
+      host: localhost
+      auto-index-creation: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
