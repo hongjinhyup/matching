@@ -112,15 +112,15 @@ public class QuotationServiceImpl implements QuotationService {
     @Override
     public void statusStart(QuotationDto quotationDto) {
         try{
-            log.info("1");
             String userEmail = quotationDto.getUserEmail();
-            log.info(userEmail);
             String gosuEmail = quotationDto.getGosuEmail();
-            log.info(gosuEmail);
+
             QuotationDto target = quotationRepo.findByUserEmailAndGosuEmail(userEmail, gosuEmail);
-            log.info("FindInfo");
+
             target.setStatus(1);
+
             quotationRepo.save(target.toEntity());
+
         } catch (Exception e){
             throw new RuntimeException("No Quotation");
         }
@@ -131,9 +131,13 @@ public class QuotationServiceImpl implements QuotationService {
         try{
             String userEmail = quotationDto.getUserEmail();
             String gosuEmail = quotationDto.getGosuEmail();
+
             QuotationDto target = quotationRepo.findByUserEmailAndGosuEmail(userEmail, gosuEmail);
+
             target.setStatus(2);
+
             quotationRepo.save(target.toEntity());
+
         } catch (Exception e){
             throw new RuntimeException("No Quotation");
         }

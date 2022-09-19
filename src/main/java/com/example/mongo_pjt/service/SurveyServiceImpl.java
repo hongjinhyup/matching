@@ -149,10 +149,15 @@ public class SurveyServiceImpl implements SurveyService {
         try{
             String userEmail = quotationDto.getUserEmail();
             String gosuEmail = quotationDto.getGosuEmail();
+
             SurveyDto target = surveyRepo.findByEmailAndGosuEmail(userEmail, gosuEmail);
+
             target.setStatus(1);
+
             surveyRepo.save(target.toEntity());
+
         } catch (Exception e){
+            log.info(e);
             throw new RuntimeException("No Survey");
         }
     }
@@ -162,9 +167,13 @@ public class SurveyServiceImpl implements SurveyService {
         try{
             String userEmail = quotationDto.getUserEmail();
             String gosuEmail = quotationDto.getGosuEmail();
+
             SurveyDto target = surveyRepo.findByEmailAndGosuEmail(userEmail, gosuEmail);
+
             target.setStatus(2);
+
             surveyRepo.save(target.toEntity());
+
         } catch (Exception e){
             throw new RuntimeException("No Survey");
         }
