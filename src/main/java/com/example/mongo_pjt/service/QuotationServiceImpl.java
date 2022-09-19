@@ -30,6 +30,7 @@ public class QuotationServiceImpl implements QuotationService {
         SurveyEntity surveyInfo = surveyRepo.findById(id).orElseThrow();
         String userEmailInfo = surveyInfo.getEmail();
         quotationDto.setUserEmail(userEmailInfo);
+        //만들때 진행 전 부터 시작
         quotationDto.setStatus(0);
         QuotationEntity quotationEntity = quotationRepo.save(quotationDto.toEntity());
 
