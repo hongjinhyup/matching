@@ -45,14 +45,22 @@ public class QuotationController {
     }
 
     @PutMapping("/matchedstart")
-    public void matchedstart(@RequestBody QuotationDto users){
+    public ResponseEntity matchedstart(@RequestBody QuotationDto users){
         quotationService.statusStart(users);
         surveyService.statusStart(users);
+
+        Map<String, String> input = new HashMap<>();
+        input.put("Status","Changed");
+        return ResponseEntity.ok().body(input);
     }
     @PutMapping("/matchedfinish")
-    public void matchedfinish(@RequestBody QuotationDto users){
+    public ResponseEntity matchedfinish(@RequestBody QuotationDto users){
         quotationService.statusFinish(users);
         surveyService.statusFinish(users);
+
+        Map<String, String> input = new HashMap<>();
+        input.put("Status","Changed");
+        return ResponseEntity.ok().body(input);
     }
 
     @PostMapping("matchedgosulist/{id}")
