@@ -151,11 +151,11 @@ public class SurveyServiceImpl implements SurveyService {
             String surveyId = quotationDto.getSurveyId();
 
             SurveyEntity target = surveyRepo.findById(surveyId).orElseThrow();
-            log.info("1");
+
             SurveyDto result = target.toDto();
-            log.info("2");
+
             result.setStatus(1);
-            log.info("3");
+
             surveyRepo.save(result.toEntity());
         } catch (Exception e){
             throw new RuntimeException("No Survey");
