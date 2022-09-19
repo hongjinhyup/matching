@@ -31,7 +31,7 @@ public class QuotationServiceImpl implements QuotationService {
         String userEmailInfo = surveyInfo.getEmail();
         quotationDto.setUserEmail(userEmailInfo);
         //만들때 진행 전 부터 시작
-        quotationDto.setSurveyid(id);
+        quotationDto.setSurveyId(id);
         quotationDto.setStatus(0);
         QuotationEntity quotationEntity = quotationRepo.save(quotationDto.toEntity());
 
