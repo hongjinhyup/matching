@@ -148,7 +148,7 @@ public class SurveyServiceImpl implements SurveyService {
     public void statusStart(QuotationDto quotationDto) {
         try{
 
-            String surveyId = quotationDto.getSurveyid();
+            String surveyId = quotationDto.getSurveyId();
             log.info(quotationDto.getUserEmail());
             log.info(surveyId);
             SurveyEntity target = surveyRepo.findById(surveyId).orElseThrow();

@@ -21,7 +21,7 @@ public class QuotationDto {
     private Long quotationPrice; // 프론트에서 받아올 것
     private String introduction;  // 프론트에서 받아올 것
     private Integer status;
-    private String surveyid;
+    private String surveyId;
 
     public QuotationEntity toEntity() {
         QuotationEntity quotationEntity = QuotationEntity.builder()
@@ -37,7 +37,7 @@ public class QuotationDto {
                 .quotationPrice(quotationPrice)
                 .introduction(introduction)
                 .status(status)
-                .surveyid(surveyid)
+                .surveyId(surveyId)
                 .build();
         return quotationEntity;
     }
