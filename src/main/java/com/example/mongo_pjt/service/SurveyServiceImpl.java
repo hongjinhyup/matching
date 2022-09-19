@@ -147,14 +147,16 @@ public class SurveyServiceImpl implements SurveyService {
     @Override
     public void statusStart(QuotationDto quotationDto) {
         try{
-            String userEmail = quotationDto.getUserEmail();
-            String gosuEmail = quotationDto.getGosuEmail();
 
-            SurveyDto target = surveyRepo.findByEmailAndGosuEmail(userEmail, gosuEmail);
+            String surveyId = quotationDto.getSurveyid();
 
-            target.setStatus(1);
+            SurveyEntity target = surveyRepo.findById(surveyId).orElseThrow();
 
-            surveyRepo.save(target.toEntity());
+            SurveyDto result = target.toDto();
+
+            result.setStatus(1);
+
+            surveyRepo.save(result.toEntity());
 
         } catch (Exception e){
             throw new RuntimeException("No Survey");
@@ -167,11 +169,11 @@ public class SurveyServiceImpl implements SurveyService {
             String userEmail = quotationDto.getUserEmail();
             String gosuEmail = quotationDto.getGosuEmail();
 
-            SurveyDto target = surveyRepo.findByEmailAndGosuEmail(userEmail, gosuEmail);
-
-            target.setStatus(2);
-
-            surveyRepo.save(target.toEntity());
+//            SurveyDto target = surveyRepo.findByEmailAndGosuEmail(userEmail, gosuEmail);
+//
+//            target.setStatus(2);
+//
+//            surveyRepo.save(target.toEntity());
 
         } catch (Exception e){
             throw new RuntimeException("No Survey");
