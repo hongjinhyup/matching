@@ -45,16 +45,14 @@ public class QuotationController {
     }
 
     @PutMapping("/matchedstart")
-    public ResponseEntity matchedstart(@RequestBody QuotationDto users){
+    public void matchedstart(@RequestBody QuotationDto users){
         quotationService.statusStart(users);
         surveyService.statusStart(users);
-        return ResponseEntity.ok().body("Status Changed");
     }
     @PutMapping("/matchedfinish")
-    public ResponseEntity matchedfinish(@RequestBody QuotationDto users){
+    public void matchedfinish(@RequestBody QuotationDto users){
         quotationService.statusFinish(users);
         surveyService.statusFinish(users);
-        return ResponseEntity.ok().body("Status Changed");
     }
 
     @PostMapping("matchedgosulist/{id}")
