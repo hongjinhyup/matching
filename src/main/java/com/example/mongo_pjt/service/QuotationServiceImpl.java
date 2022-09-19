@@ -43,11 +43,11 @@ public class QuotationServiceImpl implements QuotationService {
     public List<QuotationEntity> showingAllQuo(String email) {
         List<QuotationEntity> quotationList = quotationRepo.findByUserEmail(email);
         List lists = new ArrayList<>();
-        QuotationOnlyDto quotationOnlyDto = new QuotationOnlyDto();
+        QuotationOnlyDto quotationOnlyDto;
 
         if (!quotationList.isEmpty()) {
             for (int i=0; i<quotationList.size(); i++) {
-                lists = new ArrayList<>();
+                quotationOnlyDto = new QuotationOnlyDto();
                 quotationOnlyDto.setId(quotationList.get(i).getId());
                 quotationOnlyDto.setGosuName(quotationList.get(i).getGosuName());
                 quotationOnlyDto.setGosuAge(quotationList.get(i).getGosuAge());
