@@ -41,7 +41,7 @@ public class QuotationEntity {
                 .quotationPrice(quotationPrice)
                 .introduction(introduction)
                 .status(status)
-                .surveyid(surveyId)
+                .surveyId(surveyId)
                 .build();
         return todto;
     }
