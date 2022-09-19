@@ -21,7 +21,6 @@ public class QuotationDto {
     private Long quotationPrice; // 프론트에서 받아올 것
     private String introduction;  // 프론트에서 받아올 것
     private Integer status;
-
     private String surveyid;
 
     public QuotationEntity toEntity() {
