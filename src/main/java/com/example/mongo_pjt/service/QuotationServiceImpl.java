@@ -47,6 +47,7 @@ public class QuotationServiceImpl implements QuotationService {
 
         if (!quotationList.isEmpty()) {
             for (int i=0; i<quotationList.size(); i++) {
+                lists = new ArrayList<>();
                 quotationOnlyDto.setId(quotationList.get(i).getId());
                 quotationOnlyDto.setGosuName(quotationList.get(i).getGosuName());
                 quotationOnlyDto.setGosuAge(quotationList.get(i).getGosuAge());
