@@ -19,5 +19,5 @@ public interface SurveyRepo extends MongoRepository<SurveyEntity, String> {
     List<SurveyEntity> findByCategory(String category);
     List<SurveyEntity> findSurveyEntitiesByRegionAndAgeAndGender(String region, Integer age, String gender);
     SurveyDto findAllByIdAndStatus(String id, Integer status);
-    SurveyDto findByEmailAndGosuEmail(String Email, String gosuEmail);
+    SurveyDto findByEmailAndGosuEmail(String email, String gosuEmail);
 }

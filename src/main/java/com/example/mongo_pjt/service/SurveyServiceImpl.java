@@ -157,7 +157,6 @@ public class SurveyServiceImpl implements SurveyService {
             surveyRepo.save(target.toEntity());
 
         } catch (Exception e){
-            log.info(e);
             throw new RuntimeException("No Survey");
         }
     }
