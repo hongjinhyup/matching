@@ -43,6 +43,12 @@ public class QuotationController {
         return ResponseEntity.ok().body(result);
     }
 
+    @PutMapping("/matchedstart")
+    public ResponseEntity matchedstart(@RequestBody QuotationDto users){
+        quotationService.statusStart(users);
+        surveyService.statusStart(users);
+        return ResponseEntity.ok().body("Status Changed");
+    }
     @PutMapping("/matchedfinish")
     public ResponseEntity matchedfinish(@RequestBody QuotationDto users){
         quotationService.statusFinish(users);

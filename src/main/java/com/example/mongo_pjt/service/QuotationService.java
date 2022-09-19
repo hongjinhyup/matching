@@ -14,5 +14,6 @@ public interface QuotationService {
     List<QuotationEntity> showingAllQuo(String id);  // 고수리스트
     QuotationDto showingQuotationDetail(String id);
     List<QuotationDto> showingQuoAccordingToStatus(Integer status, IdListDto idListDto);
+    void statusStart(QuotationDto quotationDto);
     void statusFinish(QuotationDto quotationDto);
 }

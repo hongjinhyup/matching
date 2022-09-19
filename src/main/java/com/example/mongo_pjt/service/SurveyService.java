@@ -12,5 +12,6 @@ public interface SurveyService {
     List<SurveyOnlyDto> showingProperUsersForExpert(UserDto experInfo);
     void changingStatus(String id);
     List<SurveyOnlyDto> showingSurveysAccordingToStatus(Integer status, IdListDto idListDto);
+    void statusStart(QuotationDto quotationDto);
     void statusFinish(QuotationDto quotationDto);
 }
