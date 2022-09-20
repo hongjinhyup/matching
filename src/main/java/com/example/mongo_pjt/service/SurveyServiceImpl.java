@@ -107,7 +107,7 @@ public class SurveyServiceImpl implements SurveyService {
         Integer expertAge = expertInfo.getAge();
         String expertGender = expertInfo.getGender();
 
-        List<SurveyEntity> surveyList = null;
+        List<SurveyEntity> surveyList = new ArrayList<>();
 
         for (int i=0; i<expertAddrsList.size(); i++) {
 //            String ex = expertAddrsList.get(i).toString();
