@@ -67,7 +67,7 @@ public class SurveyController {
         log.info("status : " + status);
         log.info("surveyIdListDto : " + idListDto.getId());
 
-        List<SurveyOnlyDto> surveyOnlyDtoList = surveyService.showingSurveysAccordingToStatus(status, idListDto);
+        List<SurveyDto> surveyOnlyDtoList = surveyService.showingSurveysAccordingToStatus(status, idListDto);
 
         return ResponseEntity.ok().body(surveyOnlyDtoList);
     }

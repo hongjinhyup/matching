@@ -66,7 +66,7 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public List<SurveyOnlyDto> showingSurveysAccordingToStatus(Integer status, IdListDto idListDto) {
+    public List<SurveyDto> showingSurveysAccordingToStatus(Integer status, IdListDto idListDto) {
 
         List surveyInfoAccordingToStatus = new ArrayList();
 
@@ -79,10 +79,10 @@ public class SurveyServiceImpl implements SurveyService {
 
             for (int i=0; i< ids.size(); i++) {
                 String id = ids.get(i).toString();
-                SurveyOnlyDto surveyOnlyDto = surveyRepo.findAllByIdAndStatus(id, status).toEntity().toUserSurveyOnly();
-                if (surveyOnlyDto!=null) {
+                SurveyDto surveyDto = surveyRepo.findAllByIdAndStatus(id, status);
+                if (surveyDto != null) {
                     log.info("in");
-                    surveyInfoAccordingToStatus.add(surveyOnlyDto);
+                    surveyInfoAccordingToStatus.add(surveyDto);
                 }
             }
 
