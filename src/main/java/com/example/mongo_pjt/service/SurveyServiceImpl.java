@@ -84,6 +84,12 @@ public class SurveyServiceImpl implements SurveyService {
                     log.info("in");
                     surveyInfoAccordingToStatus.add(surveyDto);
                 }
+                else {
+                    Map<String,Integer> map = new HashMap<>();
+                    map.put("ListNull",101);
+                    surveyInfoAccordingToStatus.add(map);
+                    return surveyInfoAccordingToStatus;
+                }
             }
 
 //            return surveyInfoAccordingToStatus;
