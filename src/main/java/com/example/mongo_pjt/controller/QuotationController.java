@@ -1,5 +1,6 @@
 package com.example.mongo_pjt.controller;
 
+import com.example.mongo_pjt.domain.dto.GaraDto;
 import com.example.mongo_pjt.domain.dto.IdListDto;
 import com.example.mongo_pjt.domain.dto.QuotationDto;
 import com.example.mongo_pjt.domain.dto.UserDto;
@@ -54,9 +55,13 @@ public class QuotationController {
         return ResponseEntity.ok().body(input);
     }
     @PutMapping("/matchedfinish")
-    public ResponseEntity matchedfinish(@RequestBody QuotationDto users){
-        quotationService.statusFinish(users);
-        surveyService.statusFinish(users);
+    public ResponseEntity matchedfinish(@RequestBody GaraDto gara){
+
+        String surveyId = gara.getSurveyId();
+        String quotationId = gara.getQuotationId();
+
+        quotationService.statusFinish(quotationId);
+        surveyService.statusFinish(surveyId);
 
         Map<String, String> input = new HashMap<>();
         input.put("Status","Changed");

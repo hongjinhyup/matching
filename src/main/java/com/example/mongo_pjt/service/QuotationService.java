@@ -15,5 +15,5 @@ public interface QuotationService {
     QuotationDto showingQuotationDetail(String id);
     List<QuotationDto> showingQuoAccordingToStatus(Integer status, IdListDto idListDto);
     void statusStart(QuotationDto quotationDto);
-    void statusFinish(QuotationDto quotationDto);
+    void statusFinish(String quotationId);
 }

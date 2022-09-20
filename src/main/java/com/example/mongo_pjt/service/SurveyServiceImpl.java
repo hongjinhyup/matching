@@ -163,17 +163,16 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public void statusFinish(QuotationDto quotationDto) {
+    public void statusFinish(String surveyId) {
         try{
-            String userEmail = quotationDto.getUserEmail();
-            String gosuEmail = quotationDto.getGosuEmail();
 
-//            SurveyDto target = surveyRepo.findByEmailAndGosuEmail(userEmail, gosuEmail);
-//
-//            target.setStatus(2);
-//
-//            surveyRepo.save(target.toEntity());
+            SurveyEntity target = surveyRepo.findById(surveyId).orElseThrow();
 
+            SurveyDto result = target.toDto();
+
+            result.setStatus(2);
+
+            surveyRepo.save(result.toEntity());
         } catch (Exception e){
             throw new RuntimeException("No Survey");
         }

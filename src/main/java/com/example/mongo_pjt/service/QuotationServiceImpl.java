@@ -129,16 +129,14 @@ public class QuotationServiceImpl implements QuotationService {
     }
 
     @Override
-    public void statusFinish(QuotationDto quotationDto) {
+    public void statusFinish(String quotationId) {
         try{
-            String userEmail = quotationDto.getUserEmail();
-            String gosuEmail = quotationDto.getGosuEmail();
 
-            QuotationDto target = quotationRepo.findByUserEmailAndGosuEmail(userEmail, gosuEmail);
+            QuotationEntity target = quotationRepo.findById(quotationId).orElseThrow();
+            QuotationDto result = target.toDto();
+            result.setStatus(2);
 
-            target.setStatus(2);
-
-            quotationRepo.save(target.toEntity());
+            quotationRepo.save(result.toEntity());
 
         } catch (Exception e){
             throw new RuntimeException("No Quotation");
