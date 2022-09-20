@@ -29,10 +29,12 @@ public class QuotationServiceImpl implements QuotationService {
         log.info("gosuEmail information from controller : " + quotationDto.getGosuEmail());
         SurveyEntity surveyInfo = surveyRepo.findById(id).orElseThrow();
         String userEmailInfo = surveyInfo.getEmail();
+        String regionSplit = quotationDto.getGosuRegion().substring(0, quotationDto.getGosuRegion().length()-1);
         quotationDto.setUserEmail(userEmailInfo);
         //만들때 진행 전 부터 시작
         quotationDto.setSurveyId(id);
         quotationDto.setStatus(0);
+        quotationDto.setGosuRegion(regionSplit);
         QuotationEntity quotationEntity = quotationRepo.save(quotationDto.toEntity());
 
 
