@@ -93,7 +93,7 @@ public class QuotationServiceImpl implements QuotationService {
             for (int i=0; i< ids.size(); i++) {
                 String id = ids.get(i).toString();
                 QuotationDto quotationDto = quotationRepo.findAllByIdAndStatus(id, status);
-                if (!quotationDto.equals("null")) {
+                if (quotationDto != null) {
                     quotationDtoList.add(quotationDto);
                 }
 

@@ -80,8 +80,9 @@ public class SurveyServiceImpl implements SurveyService {
             for (int i=0; i< ids.size(); i++) {
                 String id = ids.get(i).toString();
                 SurveyOnlyDto surveyOnlyDto = surveyRepo.findAllByIdAndStatus(id, status).toEntity().toUserSurveyOnly();
-
-                surveyInfoAccordingToStatus.add(surveyOnlyDto);
+                if (surveyOnlyDto != null) {
+                    surveyInfoAccordingToStatus.add(surveyOnlyDto);
+                }
             }
 
 //            return surveyInfoAccordingToStatus;
