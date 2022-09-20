@@ -114,7 +114,7 @@ public class SurveyServiceImpl implements SurveyService {
             surveyList = surveyRepo.findSurveyEntitiesByRegionAndAgeAndGender(expertAddrsList.get(i).toString(), expertAge, expertGender);
         }
 
-        if (surveyList.size() != 0) {
+        if (!surveyList.isEmpty()/*surveyList.size() != 0*/) {
             for (int i =0; i<surveyList.size(); i++) {
                 SurveyOnlyDto newOne = surveyList.get(i).toUserSurveyOnly();
                 surveyOnlyDtoList.add(newOne);
