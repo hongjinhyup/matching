@@ -58,6 +58,7 @@ public class QuotationServiceImpl implements QuotationService {
                 quotationOnlyDto.setStatus(quotationList.get(i).getStatus());
                 lists.add(quotationOnlyDto);
             }
+            Collections.reverse(lists);
 
             return lists;
 

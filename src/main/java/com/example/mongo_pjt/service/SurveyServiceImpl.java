@@ -120,6 +120,7 @@ public class SurveyServiceImpl implements SurveyService {
                 surveyOnlyDtoList.add(newOne);
             }
 
+            Collections.reverse(surveyOnlyDtoList);
             return surveyOnlyDtoList;
         }
         else {
